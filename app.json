@@ -21,10 +21,19 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.abiu12.apptomate2"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "49fb5263-d0ce-4a4c-8459-afd4eb61917c"
+      }
+    },
+    "plugins": [
+      "expo-font"
+    ]
   }
 }

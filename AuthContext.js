@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
     idWorker: "",
     idFarmer: "",
     role: "",
+    idUser: "",
   }); // Estado para almacenar los datos del usuario
 
   return (

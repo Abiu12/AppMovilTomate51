@@ -80,14 +80,7 @@ const styles = StyleSheet.create({
     padding: 15,
     marginTop: 7,
     marginBottom: 5,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 2,
+    borderWidth: 1,
   },
   containerGreenhouse: {
     flexDirection: "row",

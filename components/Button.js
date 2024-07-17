@@ -1,22 +1,27 @@
 import React from "react";
 import { Pressable, StyleSheet } from "react-native";
 import MyText from "./MyText";
+import LoaderButton from "./LoaderButton";
 
-export default function Button({ onPress, text, disabled }) {
+export default function Button({ onPress, text, disabled, activeLoader }) {
   return (
     <Pressable
       style={[styles.button, disabled && styles.buttonDisabled]} // Aplicar estilo condicional para opacidad
       onPress={onPress}
       disabled={disabled}
     >
-      <MyText
-        text={text}
-        fontFamily={"Arial"}
-        fontWeight={"bold"}
-        fontSize={15}
-        color={"white"}
-        textAlign={"center"}
-      />
+      {activeLoader ? (
+        <LoaderButton></LoaderButton>
+      ) : (
+        <MyText
+          text={text}
+          fontFamily={"Arial"}
+          fontWeight={"bold"}
+          fontSize={15}
+          color={"white"}
+          textAlign={"center"}
+        />
+      )}
     </Pressable>
   );
 }

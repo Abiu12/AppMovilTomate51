@@ -9,6 +9,7 @@ import { Ionicons } from "@expo/vector-icons";
 import Feed from "./screens/guest/tabScreens/Feed";
 
 import MyText from "./components/MyText";
+import Settings from "./screens/guest/tabScreens/Settings";
 
 //Stack
 const Stack = createNativeStackNavigator();
@@ -56,50 +57,6 @@ function StackGroupFeed() {
   );
 }
 
-// function StackGroupNotifications() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="Notifications"
-//         component={Notification}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//       <Stack.Screen
-//         name="RecomendationsAndActionsNotifications"
-//         component={RecomendationsAndActionsNotifications}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
-
-// function StackGroupSettings() {
-//   return (
-//     <Stack.Navigator>
-//       <Stack.Screen
-//         name="Settings"
-//         component={Settings}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//       <Stack.Screen
-//         name="ChangePassword"
-//         component={ChangePassword}
-//         options={{
-//           headerShown: false,
-//         }}
-//       />
-//     </Stack.Navigator>
-//   );
-// }
-
-//Tab
-
 const Tab = createBottomTabNavigator();
 
 function TabGroup() {
@@ -145,9 +102,9 @@ function TabGroup() {
           headerTintColor: "white",
         }}
       />
-      {/* <Tab.Screen
-        name="Notificaciones"
-        component={StackGroupNotifications}
+      <Tab.Screen
+        name="Ajustes"
+        component={Settings}
         options={{
           headerShown: true,
           headerStyle: {
@@ -156,17 +113,6 @@ function TabGroup() {
           headerTintColor: "white",
         }}
       />
-      <Tab.Screen
-        name="Ajustes"
-        component={StackGroupSettings}
-        options={{
-          headerShown: true,
-          headerStyle: {
-            backgroundColor: "#C62426",
-          },
-          headerTintColor: "white",
-        }}
-      /> */}
     </Tab.Navigator>
   );
 }
@@ -174,7 +120,7 @@ export default function NavigationGuest() {
   return (
     <>
       <TabGroup></TabGroup>
-      <StatusBar style="dark" />
+
       <Toast
         ref={(toastSuccess) => (this.toastSuccess = toastSuccess)}
         style={{ backgroundColor: "green" }}
@@ -189,6 +135,7 @@ export default function NavigationGuest() {
         opacity={0.8}
         textStyle={{ color: "white" }}
       />
+      <StatusBar style="dark" />
     </>
     // <NavigationContainer>
 

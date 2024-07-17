@@ -152,151 +152,149 @@ export default function ChangePasswordLogin() {
         "Content-Type": "application/json",
       },
     });
-    this.toast.show("\u2713 Contraseña actualizada con éxito", 800);
+    this.toastSuccess.show("\u2713 Contraseña actualizada con éxito", 800);
     navigate("Login");
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ marginTop: "5%" }}>
+    <View style={styles.container}>
+      <View style={{ marginTop: "5%" }}>
+        <MyText
+          fontFamily={"PoppinsBold"}
+          text={"Tomi-Plagas y Enfermedades"}
+          fontSize={20}
+          color={"white"}
+          textAlign={"center"}
+        />
+      </View>
+
+      <View style={styles.card}>
+        <View
+          style={{
+            borderBottomWidth: 1,
+            borderBottomColor: "#ccc",
+            marginBottom: "15%",
+          }}
+        >
           <MyText
             fontFamily={"PoppinsBold"}
-            text={"Tomi-Plagas y Enfermedades"}
+            text={"Cambiar contraseña"}
             fontSize={20}
-            color={"white"}
+            color={"#C62426"}
             textAlign={"center"}
           />
         </View>
 
-        <View style={styles.card}>
-          <View
-            style={{
-              borderBottomWidth: 1,
-              borderBottomColor: "#ccc",
-              marginBottom: "15%",
-            }}
-          >
+        {/* Contraseña nueva */}
+        <View style={{ marginBottom: "5%" }}>
+          <View style={{ flexDirection: "row" }}>
             <MyText
               fontFamily={"PoppinsBold"}
-              text={"Cambiar contraseña"}
-              fontSize={20}
-              color={"#C62426"}
-              textAlign={"center"}
+              text={"Nueva contraseña: "}
+              fontSize={15}
+              textAlign={"left"}
             />
+            {checkNewPassword && (
+              <BouncyCheckbox
+                size={15}
+                fillColor="green"
+                isChecked={checkNewPassword}
+                // onPress={changeStatus}
+                style={{
+                  marginLeft: 5,
+                }}
+                disabled={true}
+              />
+            )}
           </View>
 
-          {/* Contraseña nueva */}
-          <View style={{ marginBottom: "5%" }}>
-            <View style={{ flexDirection: "row" }}>
-              <MyText
-                fontFamily={"PoppinsBold"}
-                text={"Nueva contraseña: "}
-                fontSize={15}
-                textAlign={"left"}
-              />
-              {checkNewPassword && (
-                <BouncyCheckbox
-                  size={15}
-                  fillColor="green"
-                  isChecked={checkNewPassword}
-                  // onPress={changeStatus}
-                  style={{
-                    marginLeft: 5,
-                  }}
-                  disabled={true}
-                />
-              )}
-            </View>
-
-            <View>
-              <InputIcon
-                value={newPassword}
-                onChangeText={(text) => handleChangeNewPassword(text)}
-                icon={secureNewPassword ? "eye" : "eye-slash"}
-                sizeIcon={19}
-                secureTextEntry={secureNewPassword}
-                onPress={() => handleChangeSecure("newPassword")}
-                paddingVertical={7}
-                borderColor={"#ADADAD"}
-              />
-            </View>
-          </View>
-
-          {/* Confirmar contraseña nueva */}
-          <View style={{ marginBottom: "5%" }}>
-            <View style={{ flexDirection: "row" }}>
-              <MyText
-                fontFamily={"PoppinsBold"}
-                text={"Confirmar contraseña: "}
-                fontSize={15}
-                textAlign={"left"}
-              />
-              {checkNewPasswordConfirm && (
-                <BouncyCheckbox
-                  size={15}
-                  fillColor="green"
-                  isChecked={checkNewPasswordConfirm}
-                  style={{
-                    marginLeft: 5,
-                  }}
-                  disabled={true}
-                />
-              )}
-            </View>
-            <View>
-              <InputIcon
-                value={newPasswordConfirm}
-                onChangeText={(text) => handleChangeNewPasswordConfirm(text)}
-                icon={secureNewPasswordConfirm ? "eye" : "eye-slash"}
-                sizeIcon={19}
-                secureTextEntry={secureNewPasswordConfirm}
-                onPress={() => handleChangeSecure("newPasswordConfirm")}
-                paddingVertical={7}
-                borderColor={"#ADADAD"}
-              />
-            </View>
-          </View>
-
-          {/* Caracteristicas de contraseña */}
-          <View style={{}}>
-            <RulePassword
-              text={"La contraseña debe tener minimo 8 carácteres"}
-              value={length}
-            />
-            <RulePassword
-              text={"La contraseña debe tener al menos una mayúscula"}
-              value={upperCaseLetter}
-            />
-            <RulePassword
-              text={"La contraseña debe tener al menos una minúscula"}
-              value={lowerCaseLetter}
-            />
-            <RulePassword
-              text={"La contraseña debe tener al menos un número"}
-              value={number}
-            />
-            <RulePassword
-              text={"La contraseña debe tener al menos un símbolo"}
-              value={symbol}
+          <View>
+            <InputIcon
+              value={newPassword}
+              onChangeText={(text) => handleChangeNewPassword(text)}
+              icon={secureNewPassword ? "eye" : "eye-slash"}
+              sizeIcon={19}
+              secureTextEntry={secureNewPassword}
+              onPress={() => handleChangeSecure("newPassword")}
+              paddingVertical={7}
+              borderColor={"#ADADAD"}
             />
           </View>
+        </View>
 
-          <IconButtonText
-            label={"Cambiar contraseña"}
-            icon={"save"}
-            onPress={handleUpdatePassword}
-            isEnabled={enableButton}
+        {/* Confirmar contraseña nueva */}
+        <View style={{ marginBottom: "5%" }}>
+          <View style={{ flexDirection: "row" }}>
+            <MyText
+              fontFamily={"PoppinsBold"}
+              text={"Confirmar contraseña: "}
+              fontSize={15}
+              textAlign={"left"}
+            />
+            {checkNewPasswordConfirm && (
+              <BouncyCheckbox
+                size={15}
+                fillColor="green"
+                isChecked={checkNewPasswordConfirm}
+                style={{
+                  marginLeft: 5,
+                }}
+                disabled={true}
+              />
+            )}
+          </View>
+          <View>
+            <InputIcon
+              value={newPasswordConfirm}
+              onChangeText={(text) => handleChangeNewPasswordConfirm(text)}
+              icon={secureNewPasswordConfirm ? "eye" : "eye-slash"}
+              sizeIcon={19}
+              secureTextEntry={secureNewPasswordConfirm}
+              onPress={() => handleChangeSecure("newPasswordConfirm")}
+              paddingVertical={7}
+              borderColor={"#ADADAD"}
+            />
+          </View>
+        </View>
+
+        {/* Caracteristicas de contraseña */}
+        <View style={{}}>
+          <RulePassword
+            text={"La contraseña debe tener minimo 8 carácteres"}
+            value={length}
           />
-          <IconButtonText
-            label={"Cancelar"}
-            icon={"angle-left"}
-            onPress={handleCancel}
-            isEnabled={true}
+          <RulePassword
+            text={"La contraseña debe tener al menos una mayúscula"}
+            value={upperCaseLetter}
+          />
+          <RulePassword
+            text={"La contraseña debe tener al menos una minúscula"}
+            value={lowerCaseLetter}
+          />
+          <RulePassword
+            text={"La contraseña debe tener al menos un número"}
+            value={number}
+          />
+          <RulePassword
+            text={"La contraseña debe tener al menos un símbolo"}
+            value={symbol}
           />
         </View>
-      </ScrollView>
-    </SafeAreaView>
+
+        <IconButtonText
+          label={"Cambiar contraseña"}
+          icon={"save"}
+          onPress={handleUpdatePassword}
+          isEnabled={enableButton}
+        />
+        <IconButtonText
+          label={"Cancelar"}
+          icon={"angle-left"}
+          onPress={handleCancel}
+          isEnabled={true}
+        />
+      </View>
+    </View>
   );
 }
 
@@ -308,7 +306,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   card: {
-    height: "85%",
     backgroundColor: "#fff",
     borderRadius: 25,
     padding: 25,

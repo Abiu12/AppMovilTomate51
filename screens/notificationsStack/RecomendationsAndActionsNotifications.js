@@ -1,23 +1,17 @@
 import { useFocusEffect, useRoute } from "@react-navigation/native";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  Text,
   StyleSheet,
   SafeAreaView,
   ScrollView,
   Image,
   View,
-  CheckBox,
-  Alert,
 } from "react-native";
 
 //Utils
 import { BASE_URL } from "../../utils/config";
 
-//Components
-import TopText from "../../components/TopText";
 import CardRecomendationAndAction from "../../components/CardRecomendationAndAction";
-import NormalText from "../../components/NormalText";
 import BouncyCheckbox from "react-native-bouncy-checkbox";
 import MyText from "../../components/MyText";
 
@@ -31,7 +25,6 @@ export default function RecomendationsAndActionsNotifications() {
 
   useFocusEffect(
     React.useCallback(() => {
-      console.log("Monte el componente");
       fetchRecomendationsAndActions();
       if (status && status === "Tratada" && !isLoaded) {
         setIsChecked(true);
@@ -45,8 +38,10 @@ export default function RecomendationsAndActionsNotifications() {
     const response = await fetch(
       `${BASE_URL}/analizedImage/solutions/${idAnalizedImage}`
     );
-    const data = await response.json();
-    setRecomendationsAndActions(data);
+    if (response.status == 200) {
+      const data = await response.json();
+      setRecomendationsAndActions(data);
+    }
   }
 
   async function changeStatus() {
@@ -82,8 +77,7 @@ export default function RecomendationsAndActionsNotifications() {
           }
         );
       }
-      // ToastAndroid.show('Se ha actualizado el estado de la imagen!', ToastAndroid.SHORT);
-      this.toast.show("Estado actualizado con éxito \u2713", 800);
+      this.toastSuccess.show("Estado actualizado con éxito \u2713", 800);
     } catch (error) {}
   }
 
@@ -119,7 +113,7 @@ export default function RecomendationsAndActionsNotifications() {
             {!isChecked && (
               <MyText
                 fontFamily={"Poppins"}
-                text={"Marcar como vista:"}
+                text={"Marcar como tratada:"}
                 fontSize={15}
               />
             )}
@@ -170,13 +164,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 20,
     marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    borderWidth: 1,
   },
 });

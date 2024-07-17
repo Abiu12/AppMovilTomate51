@@ -15,12 +15,14 @@ import * as Animatable from "react-native-animatable";
 import { BASE_URL } from "../../utils/config";
 import SearchInput from "../../components/SearchInput";
 import MyText from "../../components/MyText";
+import { useAuth } from "../../AuthContext";
 
 export default function AnalizedImages() {
   const { navigate } = useNavigation();
   const [analizedImages, setAnalizedImages] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [isLoaded, setIsLoaded] = useState(false);
+  const { currentUser } = useAuth();
 
   const {
     params: { idBed, nameGreenhouse, numberBed },
@@ -32,13 +34,20 @@ export default function AnalizedImages() {
   });
 
   async function fetchAnalizedImages() {
-    const response = await fetch(
-      `${BASE_URL}/analizedImage/greenhouse/bed/${idBed}`
-    );
-    const data = await response.json();
-    setAnalizedImages(data);
-    setIsLoaded(true);
+    try {
+      const response = await fetch(
+        `${BASE_URL}/analizedImage/greenhouse/bed/${idBed}`
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setAnalizedImages(data);
+      }
+      setIsLoaded(true);
+    } catch (error) {
+      this.toastAlert.show(`Hubo un error ${error}`, 800);
+    }
   }
+
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -63,31 +72,29 @@ export default function AnalizedImages() {
   };
   const sendImageToBackend = async (uriImagen) => {
     try {
-      this.toastSucessfully.show(
-        "\u2713 La imagen ha sido enviada para su analisis",
-        800
-      );
       const formData = new FormData();
       formData.append("image", {
         uri: uriImagen,
         name: "image.jpg",
         type: "image/jpeg",
       });
-      const response = await fetch(`${BASE_URL}/analyzeimage/${idBed}`, {
-        method: "POST",
-        body: formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await fetch(
+        `${BASE_URL}/analyzeimage/${idBed}/${currentUser.idUser}`,
+        {
+          method: "POST",
+          body: formData,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       const dataResponse = await response.json();
       if (response.ok) {
-        this.toastSucessfully.show(`${dataResponse.message}`, 800);
+        this.toastSuccess.show(`${dataResponse.message}`, 800);
         setIsLoaded(false);
       }
     } catch (error) {
-      this.toastAlert.show("Hubo un error", 800);
-      console.log(error);
+      this.toastAlert.show(`Hubo un error ${error}`, 800);
     }
   };
   const filteredAnalizedImages = analizedImages.filter((analizedImage) => {
@@ -125,14 +132,12 @@ export default function AnalizedImages() {
           fontFamily={"PoppinsBold"}
           text={nameGreenhouse}
           fontSize={20}
-          color={"#C62426"}
           textAlign={"center"}
         />
         <MyText
           fontFamily={"PoppinsBold"}
-          text={numberBed}
+          text={"Cama: " + numberBed}
           fontSize={20}
-          color={"#C62426"}
           textAlign={"center"}
         />
 
@@ -171,6 +176,7 @@ export default function AnalizedImages() {
               fontFamily={"PoppinsBold"}
               text={"No hay enfermedades o plagas detectadas"}
               fontSize={15}
+              textAlign={"center"}
             />
           </View>
         )}

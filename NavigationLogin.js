@@ -50,7 +50,7 @@ export default function NavigationLogin() {
   return (
     <>
       <StackGroupLogin></StackGroupLogin>
-      <StatusBar style="dark" />
+
       <Toast
         ref={(toastSuccess) => (this.toastSuccess = toastSuccess)}
         style={{ backgroundColor: "green" }}
@@ -65,6 +65,7 @@ export default function NavigationLogin() {
         opacity={0.8}
         textStyle={{ color: "white" }}
       />
+      <StatusBar style="dark" />
     </>
   );
 }

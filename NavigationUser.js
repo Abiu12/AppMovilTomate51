@@ -1,5 +1,4 @@
-import { NavigationContainer } from "@react-navigation/native";
-import { StatusBar, Text } from "react-native";
+import { StatusBar } from "react-native";
 import Toast from "react-native-easy-toast";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
@@ -13,7 +12,6 @@ import Settings from "./screens/tabScreens/Settings";
 
 import DetailsGreenhouse from "./screens/feedStack/DetailsGreenhouse";
 import AnalizedImages from "./screens/feedStack/AnalizedImages";
-import TakePhoto from "./screens/feedStack/TakePhoto";
 
 import RecomendationsAndActions from "./screens/feedStack/RecomendationsAndActions";
 import RecomendationsAndActionsNotifications from "./screens/notificationsStack/RecomendationsAndActionsNotifications";
@@ -36,14 +34,6 @@ function StackGroupFeed() {
       <Stack.Screen
         name="DetailsGreenhouse"
         component={DetailsGreenhouse}
-        options={{
-          headerShown: false,
-        }}
-      />
-
-      <Stack.Screen
-        name="TakePhoto"
-        component={TakePhoto}
         options={{
           headerShown: false,
         }}
@@ -183,7 +173,6 @@ export default function NavigationUser() {
   return (
     <>
       <TabGroup></TabGroup>
-      <StatusBar style="dark" />
       <Toast
         ref={(toastSuccess) => (this.toastSuccess = toastSuccess)}
         style={{ backgroundColor: "green" }}
@@ -198,6 +187,8 @@ export default function NavigationUser() {
         opacity={0.8}
         textStyle={{ color: "white" }}
       />
+
+      <StatusBar style="dark" />
     </>
   );
 }

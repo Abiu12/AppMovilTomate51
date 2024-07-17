@@ -32,22 +32,27 @@ export default function RecomendationsAndActions() {
         setIsChecked(true);
         setIsLoaded(true);
       }
-      console.log(isChecked);
     }, [isChecked])
   );
 
   async function fetchRecomendationsAndActions() {
-    const response = await fetch(
-      `${BASE_URL}/analizedImage/solutions/${idAnalizedImage}`
-    );
-    const data = await response.json();
-    console.log(data);
-    setRecomendationsAndActions(data);
+    try {
+      const response = await fetch(
+        `${BASE_URL}/analizedImage/solutions/${idAnalizedImage}`
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setRecomendationsAndActions(data);
+      }
+    } catch (error) {
+      this.toastAlert.show(`Hubo un error ${error}`, 800);
+    }
   }
+
+  //Aqui me quede, hay que validar la respuesta del backend
   async function changeStatus() {
     try {
       if (isChecked == true) {
-        console.log("Cambio a no vista");
         setIsChecked(false);
         const response = await fetch(
           `${BASE_URL}/analizedImage/${idAnalizedImage}`,
@@ -61,8 +66,10 @@ export default function RecomendationsAndActions() {
             }),
           }
         );
+        if (response.status === 200) {
+          this.toastSuccess.show("\u2713 Estado actualizado con éxito ", 800);
+        }
       } else if (isChecked == false) {
-        console.log("Cambio a vista");
         setIsChecked(true);
         const response = await fetch(
           `${BASE_URL}/analizedImage/${idAnalizedImage}`,
@@ -76,10 +83,13 @@ export default function RecomendationsAndActions() {
             }),
           }
         );
+        if (response.status === 200) {
+          this.toastSuccess.show("\u2713 Estado actualizado con éxito ", 800);
+        }
       }
-      // ToastAndroid.show('Se ha actualizado el estado de la imagen!', ToastAndroid.SHORT);
-      this.toast.show("Estado actualizado con éxito \u2713", 800);
-    } catch (error) {}
+    } catch (error) {
+      this.toastAlert.show(`Hubo un error ${error}`, 800);
+    }
   }
 
   return (
@@ -113,7 +123,7 @@ export default function RecomendationsAndActions() {
               alignItems: "center",
             }}
           >
-            {!isChecked && <NormalText text={"Marcar como vista:"} />}
+            {!isChecked && <NormalText text={"Marcar como tratada:"} />}
 
             <BouncyCheckbox
               size={35}
@@ -160,13 +170,6 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     padding: 20,
     marginBottom: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    borderWidth: 1,
   },
 });

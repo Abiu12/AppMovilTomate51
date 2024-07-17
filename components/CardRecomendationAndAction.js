@@ -18,15 +18,7 @@ export default function CardRecomendationAndAction({
         color={"#C62426"}
         textAlign={"center"}
       />
-      <View style={styles.row}>
-        <MyText fontFamily={"PoppinsBold"} text={"Tipo: "} fontSize={15} />
-        <MyText
-          fontFamily={"PoppinsBold"}
-          text={recomendationAndAction.tipo}
-          fontSize={15}
-          color={"#C62426"}
-        />
-      </View>
+
       <View style={styles.row}>
         <MyText
           fontFamily={"PoppinsBold"}
@@ -90,13 +82,7 @@ const styles = StyleSheet.create({
     padding: 20,
     marginBottom: 20,
     shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
+    borderWidth: 1,
   },
   containerBed: {
     flexDirection: "row",

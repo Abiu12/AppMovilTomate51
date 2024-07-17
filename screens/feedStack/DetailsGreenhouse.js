@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 
 //Components
-import NormalText from "../../components/NormalText";
 import CardBed from "../../components/CardBed";
 
 //Utils
@@ -26,9 +25,17 @@ export default function DetailsGreenhouse() {
   }, []);
 
   async function fetchBeds() {
-    const response = await fetch(`${BASE_URL}/bed/greenhouse/${idGreenhouse}`);
-    const data = await response.json();
-    setBeds(data);
+    try {
+      const response = await fetch(
+        `${BASE_URL}/bed/greenhouse/${idGreenhouse}`
+      );
+      if (response.status === 200) {
+        const data = await response.json();
+        setBeds(data);
+      }
+    } catch (error) {
+      this.toastAlert.show(`Hubo un error ${error}`, 800);
+    }
   }
 
   const filteredBeds = beds.filter((bed) => {
@@ -47,7 +54,6 @@ export default function DetailsGreenhouse() {
           fontFamily={"PoppinsBold"}
           text={nameGreenhouse}
           fontSize={20}
-          color={"#C62426"}
           textAlign={"center"}
         />
         <MyText
@@ -77,11 +83,12 @@ export default function DetailsGreenhouse() {
             />
           ))
         ) : (
-          <View>
+          <View style={{ marginTop: "15%" }}>
             <MyText
               fontFamily={"PoppinsBold"}
               text={"No hay camas registradas"}
               fontSize={15}
+              textAlign={"center"}
             />
           </View>
         )}

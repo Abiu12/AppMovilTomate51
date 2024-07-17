@@ -38,7 +38,7 @@ export default function RecoveryPassword() {
       // Generar y enviar OTP al correo electrónico
       const otp = generateOTP();
       // const responseSendEmail = await sendEmail(otp);
-      this.toast.show(
+      this.toastSuccess.show(
         "\u2713  Se ha enviado el código al correo electrónico",
         1000
       );
@@ -98,100 +98,95 @@ export default function RecoveryPassword() {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={{ marginTop: "5%" }}>
+    <View style={styles.container}>
+      <View style={{ marginTop: "5%" }}>
+        <MyText
+          fontFamily={"PoppinsBold"}
+          text={"Tomi-Plagas y Enfermedades"}
+          fontSize={20}
+          color={"white"}
+          textAlign={"center"}
+        />
+      </View>
+      <View style={styles.card}>
+        <View
+          style={{
+            marginTop: "5%",
+            marginBottom: "15%",
+            borderBottomWidth: 1,
+            borderBottomColor: "#ccc",
+          }}
+        >
           <MyText
             fontFamily={"PoppinsBold"}
-            text={"Tomi-Plagas y Enfermedades"}
+            text={"Recupera tu contraseña"}
             fontSize={20}
-            color={"white"}
             textAlign={"center"}
+            color={"#C62426"}
           />
         </View>
 
-        <View style={styles.card}>
-          <View
-            style={{
-              marginTop: "5%",
-              marginBottom: "15%",
-              borderBottomWidth: 1,
-              borderBottomColor: "#ccc",
-            }}
-          >
+        <View style={{ marginTop: "5%" }}>
+          <View style={{ marginBottom: "5%" }}>
             <MyText
-              fontFamily={"PoppinsBold"}
-              text={"Recupera tu contraseña"}
-              fontSize={20}
-              textAlign={"center"}
-              color={"#C62426"}
-            />
-          </View>
-
-          <View style={{ marginTop: "5%" }}>
-            <View style={{ alignSelf: "flex-start", marginBottom: "5%" }}>
-              <MyText
-                text={"Ingresa el correo electronico asociado con tu cuenta."}
-                fontFamily={"Poppins"}
-                fontSize={14}
-              />
-            </View>
-            <View>
-              <Input
-                placeholder={"example@dom.com"}
-                paddingVertical={15}
-                fontSize={15}
-                borderColor={"#ADADAD"}
-                value={email}
-                onChangeText={(value) => handleChangeEmail(value)}
-              />
-              {/* Alert */}
-              {!isValidEmail && email != "" && (
-                <View style={{ marginTop: "5%" }}>
-                  <MyText
-                    text={"Ingrese un correo electrónico válido"}
-                    fontFamily={"Poppins"}
-                    fontSize={12}
-                    color={"#C62426"}
-                  />
-                </View>
-              )}
-              {!emailExist && (
-                <View style={{ marginTop: "5%" }}>
-                  <MyText
-                    text={
-                      "El correo ingresado no está asociado a ninguna cuenta"
-                    }
-                    fontFamily={"Poppins"}
-                    fontSize={12}
-                    color={"#C62426"}
-                  />
-                </View>
-              )}
-            </View>
-          </View>
-          <View style={{ marginTop: "5%" }}>
-            <MyText
-              text={
-                "Se te enviará un codigo con el cual podras restablecer tu contraseña."
-              }
+              text={"Ingresa el correo electronico asociado con tu cuenta."}
               fontFamily={"Poppins"}
               fontSize={14}
+              textAlign={"left"}
             />
           </View>
-          <View style={{ marginTop: "5%", marginBottom: "5%" }}>
-            <Button
-              text={"Enviar código"}
-              disabled={!isValidEmail}
-              onPress={() => {
-                handleSendEmail();
-              }}
+          <View>
+            <Input
+              placeholder={"email@address.com"}
+              paddingVertical={15}
+              fontSize={15}
+              borderColor={"#ADADAD"}
+              value={email}
+              onChangeText={(value) => handleChangeEmail(value)}
             />
+            {/* Alert */}
+            {!isValidEmail && email != "" && (
+              <View style={{ marginTop: "5%" }}>
+                <MyText
+                  text={"Ingrese un correo electrónico válido"}
+                  fontFamily={"Poppins"}
+                  fontSize={12}
+                  color={"#C62426"}
+                />
+              </View>
+            )}
+            {!emailExist && (
+              <View style={{ marginTop: "5%" }}>
+                <MyText
+                  text={"El correo ingresado no está asociado a ninguna cuenta"}
+                  fontFamily={"Poppins"}
+                  fontSize={12}
+                  color={"#C62426"}
+                />
+              </View>
+            )}
           </View>
         </View>
-        <StatusBar style="dark" />
-      </ScrollView>
-    </SafeAreaView>
+        <View style={{ marginTop: "5%" }}>
+          <MyText
+            text={
+              "Se te enviará un código con el cuál podrás restablecer tu contraseña."
+            }
+            fontFamily={"Poppins"}
+            fontSize={14}
+          />
+        </View>
+        <View style={{ marginTop: "5%", marginBottom: "5%" }}>
+          <Button
+            text={"Enviar código"}
+            disabled={!isValidEmail}
+            onPress={() => {
+              handleSendEmail();
+            }}
+          />
+        </View>
+      </View>
+    </View>
   );
 }
 
@@ -203,18 +198,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   card: {
-    height: "85%",
     backgroundColor: "#fff",
     borderRadius: 25,
     padding: 20,
     margin: 20,
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
   },
 });
